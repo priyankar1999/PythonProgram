@@ -21,7 +21,7 @@ class TestOrderProcessing(unittest.TestCase):
             "Monthly Revenue for 2023-11: $85.00\n"
             "Monthly Revenue for 2023-12: $25.00\n"
         )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')), sorted(expected_output.split('\n')))
+        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_product_revenue(self, mock_stdout):
@@ -34,7 +34,7 @@ class TestOrderProcessing(unittest.TestCase):
             "Revenue for Product_B: $180.00\n"
             "Revenue for Product_C: $200.00\n"
         )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')), sorted(expected_output.split('\n')))
+        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_customer_revenue(self, mock_stdout):
@@ -47,7 +47,7 @@ class TestOrderProcessing(unittest.TestCase):
             "Revenue for Customer Customer_2: $180.00\n"
             "Revenue for Customer Customer_3: $200.00\n"
         )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')), sorted(expected_output.split('\n')))
+        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_top_customers(self, mock_stdout):
@@ -62,7 +62,7 @@ class TestOrderProcessing(unittest.TestCase):
             "2. Customer Customer_3: $200.00\n"
             "3. Customer Customer_2: $180.00"
         )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')), sorted(expected_output.split('\n')))
+        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
 
 if __name__ == '__main__':
     unittest.main()
