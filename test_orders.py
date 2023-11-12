@@ -1,82 +1,55 @@
 import unittest
-import os
-
-from orders import monthly_revenue, product_revenue, customer_revenue, top_customers
+from unittest.mock import patch
+from io import StringIO
+import orders
 
 class TestOrderProcessing(unittest.TestCase):
 
-    def test_monthly_revenue(self):
-        script_path = 'orders.py'
-        csv_path = 'orders.csv'
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_monthly_revenue(self, mock_stdout):
+        orders.main()
+        expected_output = (
+            "Monthly Revenue for 2023-05: $85.00\n"
+            "Monthly Revenue for 2023-06: $65.00\n"
+            "Monthly Revenue for 2023-07: $115.00\n"
+            "Monthly Revenue for 2023-08: $90.00\n"
+            "Monthly Revenue for 2023-09: $65.00\n"
+            "Monthly Revenue for 2023-10: $70.00\n"
+            "Monthly Revenue for 2023-11: $85.00\n"
+            "Monthly Revenue for 2023-12: $25.00\n"
+        )
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-        os.system(f'python {script_path}')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_product_revenue(self, mock_stdout):
+        orders.main()
+        expected_output = (
+            "Revenue for Product_A: $220.00\n"
+            "Revenue for Product_B: $180.00\n"
+            "Revenue for Product_C: $200.00\n"
+        )
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-        # Check if monthly revenue dictionary is not empty
-        self.assertTrue(monthly_revenue, "Monthly revenue dictionary is empty.")
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_customer_revenue(self, mock_stdout):
+        orders.main()
+        expected_output = (
+            "Revenue for Customer Customer_1: $220.00\n"
+            "Revenue for Customer Customer_2: $180.00\n"
+            "Revenue for Customer Customer_3: $200.00\n"
+        )
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-        # Check if the total revenue for January 2023 is calculated correctly
-        self.assertAlmostEqual(monthly_revenue['2023-01'], 110.00, places=2)
-
-        # Check if the total revenue for February 2023 is calculated correctly
-        self.assertAlmostEqual(monthly_revenue['2023-02'], 120.00, places=2)
-
-        # Check if the total revenue for March 2023 is calculated correctly
-        self.assertAlmostEqual(monthly_revenue['2023-03'], 180.00, places=2)
-
-        # Check if the total revenue for April 2023 is calculated correctly
-        self.assertAlmostEqual(monthly_revenue['2023-04'], 25.00, places=2)
-
-        # Check if the total revenue for May 2023 is calculated correctly
-        self.assertAlmostEqual(monthly_revenue['2023-05'], 90.00, places=2)
-
-    def test_product_revenue(self):
-        script_path = 'orders.py'
-        csv_path = 'orders.csv'
-
-        os.system(f'python {script_path}')
-
-        # Check if product revenue dictionary is not empty
-        self.assertTrue(product_revenue, "Product revenue dictionary is empty.")
-
-        # Check if the total revenue for Product_A is calculated correctly
-        self.assertAlmostEqual(product_revenue['Product_A'], 330.00, places=2)
-
-        # Check if the total revenue for Product_B is calculated correctly
-        self.assertAlmostEqual(product_revenue['Product_B'], 120.00, places=2)
-
-        # Check if the total revenue for Product_C is calculated correctly
-        self.assertAlmostEqual(product_revenue['Product_C'], 150.00, places=2)
-        
-    def test_customer_revenue(self):
-        script_path = 'orders.py'
-        csv_path = 'orders.csv'
-
-        os.system(f'python {script_path}')
-
-        # Check if customer revenue dictionary is not empty
-        self.assertTrue(customer_revenue, "Customer revenue dictionary is empty.")
-
-        # Check if the total revenue for Customer_1 is calculated correctly
-        self.assertAlmostEqual(customer_revenue['Customer_1'], 330.00, places=2)
-
-        # Check if the total revenue for Customer_2 is calculated correctly
-        self.assertAlmostEqual(customer_revenue['Customer_2'], 240.00, places=2)
-
-        # Check if the total revenue for Customer_3 is calculated correctly
-        self.assertAlmostEqual(customer_revenue['Customer_3'], 300.00, places=2)
-
-    def test_top_customers(self):
-        script_path = 'orders.py'
-        csv_path = 'orders.csv'
-
-        os.system(f'python {script_path}')
-
-        # Check if top_customers list is not empty
-        self.assertTrue(top_customers, "Top customers list is empty.")
-
-        # Check if the top customer is calculated correctly
-        self.assertEqual(top_customers[0][0], 'Customer_1')
-        self.assertAlmostEqual(top_customers[0][1], 330.00, places=2)
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_top_customers(self, mock_stdout):
+        orders.main()
+        expected_output = (
+            "Top 10 Customers by Revenue:\n"
+            "1. Customer Customer_1: $220.00\n"
+            "2. Customer Customer_3: $200.00\n"
+            "3. Customer Customer_2: $180.00\n"
+        )
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
 
 if __name__ == '__main__':
     unittest.main()
