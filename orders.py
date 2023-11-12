@@ -11,9 +11,18 @@ product_revenue = defaultdict(float)
 customer_revenue = defaultdict(float)
 
 # Read the CSV file and process data
+required_columns = ['order_date', 'customer_id', 'product_name', 'product_price', 'quantity']
+
+# Read the CSV file and process data
 try:
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
+
+        # Check if all required columns are present
+        if not all(column in reader.fieldnames for column in required_columns):
+            print("Missing required columns in the CSV file.")
+            exit(1)
+
         for row in reader:
             order_date = datetime.strptime(row['order_date'], '%d-%m-%Y')
             month_key = f'{order_date.year}-{order_date.month:02d}'
