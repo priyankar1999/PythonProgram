@@ -1,0 +1,8 @@
+﻿order_date;product_name;product_price;quantity;customer_id
+15-01-2023;Product_A;20;2;Customer_1
+20-01-2023;Product_B;15;3;Customer_2
+05-02-2023;Product_A;20;1;Customer_1
+10-02-2023;Product_C;25;2;Customer_3
+12-03-2023;Product_B;15;4;Customer_2
+18-03-2023;Product_A;20;3;Customer_1
+08-04-2023;Product_C;25;1;Customer_3
