@@ -24,7 +24,7 @@ try:
             exit(1)
 
         for row in reader:
-            order_date = datetime.strptime(row['order_date'], '%d-%m-%Y')
+            order_date = datetime.strptime(row['order_date'], '%Y-%m-%d')
             month_key = f'{order_date.year}-{order_date.month:02d}'
             
             product_price = float(row['product_price'])
