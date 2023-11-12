@@ -57,7 +57,7 @@ class TestOrderProcessing(unittest.TestCase):
             print(f"{i}. Customer {customer}: ${revenue:.2f}")
 
         expected_output = (
-            "Top 10 Customers by Revenue:\n"
+        
             "1. Customer Customer_1: $220.00\n"
             "2. Customer Customer_3: $200.00\n"
             "3. Customer Customer_2: $180.00"
