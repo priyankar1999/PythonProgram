@@ -15,7 +15,7 @@ try:
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            order_date = datetime.strptime(row['order_date'], '%Y-%m-%d')
+            order_date = datetime.strptime(row['order_date'], '%d-%m-%Y')
             month_key = f'{order_date.year}-{order_date.month:02d}'
             
             product_price = float(row['product_price'])
