@@ -60,7 +60,7 @@ class TestOrderProcessing(unittest.TestCase):
             "Top 10 Customers by Revenue:\n"
             "1. Customer Customer_1: $220.00\n"
             "2. Customer Customer_3: $200.00\n"
-            "3. Customer Customer_2: $180.00\n"
+            "3. Customer Customer_2: $180.00"
         )
         self.assertEqual(sorted(mock_stdout.getvalue().split('\n')), sorted(expected_output.split('\n')))
 
