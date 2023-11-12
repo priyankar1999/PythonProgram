@@ -21,7 +21,7 @@ class TestOrderProcessing(unittest.TestCase):
             "Monthly Revenue for 2023-11: $85.00\n"
             "Monthly Revenue for 2023-12: $25.00\n"
         )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
+        self.assertEqual(sorted(mock_stdout.getvalue().strip().split('\n')), sorted(expected_output.strip().split('\n')))
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_product_revenue(self, mock_stdout):
@@ -34,7 +34,7 @@ class TestOrderProcessing(unittest.TestCase):
             "Revenue for Product_B: $180.00\n"
             "Revenue for Product_C: $200.00\n"
         )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
+        self.assertEqual(sorted(mock_stdout.getvalue().strip().split('\n')), sorted(expected_output.strip().split('\n')))
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_customer_revenue(self, mock_stdout):
@@ -47,22 +47,7 @@ class TestOrderProcessing(unittest.TestCase):
             "Revenue for Customer Customer_2: $180.00\n"
             "Revenue for Customer Customer_3: $200.00\n"
         )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
+        self.assertEqual(sorted(mock_stdout.getvalue().strip().split('\n')), sorted(expected_output.strip().split('\n')))
 
     @patch('sys.stdout', new_callable=StringIO)
-    def test_top_customers(self, mock_stdout):
-        _, _, customer_revenue = process_orders('orders.csv')
-        top_customers = sorted(customer_revenue.items(), key=lambda x: x[1], reverse=True)[:10]
-        for i, (customer, revenue) in enumerate(top_customers, start=1):
-            print(f"{i}. Customer {customer}: ${revenue:.2f}")
-
-        expected_output = (
-            "Top 10 Customers by Revenue:\n"
-            "1. Customer Customer_1: $220.00\n"
-            "2. Customer Customer_3: $200.00\n"
-            "3. Customer Customer_2: $180.00"
-        )
-        self.assertEqual(sorted(mock_stdout.getvalue().split('\n')[1:]), sorted(expected_output.split('\n')))
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_top_customers(self, mock
